@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "ntp_format": "ipaddress",
+  "ntp_port": 123,
+  "ntp_interval": 1400,
+  "time_mode": "NTP",
+  "timezone_offset": "+02:00",
+  "url_sync": "/ISAPI/System/time/NTPServers/1",
+  "summertime_month": "3",
+  "summertime_week": "5",
+  "summertime_hour": "03",
+  "wintertime_month": "10",
+  "wintertime_week": "5",
+  "wintertime_hour": "04",
+  "time_offset": "01:00:00",
+  "url_time": "/ISAPI/System/time"
+}

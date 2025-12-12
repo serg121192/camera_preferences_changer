@@ -1,0 +1,68 @@
+{
+  "username": "stream",
+  "init_password": "AsDfG357",
+  "login_creds": {
+    "by": "XPATH",
+    "value": "//div[@class='user-info']//input[@class='el-input__inner' and @type='text']"
+  },
+  "pass_creds": {
+    "by": "XPATH",
+    "value": "//div[@class='user-info']//input[@class='el-input__inner' and @type='password']"
+  },
+  "settings_button": {
+    "by": "XPATH",
+    "value": "//i[contains(@class,'ic-icon_camerasetting_nor')]"
+  },
+  "system_button": {
+    "by": "XPATH",
+    "value": "//span[@class='el-submenu__title--text' and text()='Система']"
+  },
+  "users_menu": {
+    "by": "XPATH",
+    "value": "//li[@class='el-menu-item']//span[@class='el-menu-item--text' and text()='Керування користувачами']"
+  },
+  "add_button": {
+    "by": "XPATH",
+    "value": "//button[@title='Додати']"
+  },
+  "user_login": {
+    "by": "XPATH",
+    "value": "//div[@class='el-input']//input[@class='el-input__inner' and @type='text']"
+  },
+  "admin_pass": {
+    "by": "XPATH",
+    "value": "//label[@for='oldPassword']/following-sibling::div[@class='el-form-item__content']//div[1]//input[@type='password' and @autocomplete='off']"
+  },
+  "init_pass": {
+    "by": "XPATH",
+    "value": "//label[@for='newPassword']/following-sibling::div[@class='el-form-item__content']//div[1]//input[@type='password' and @autocomplete='off']"
+  },
+  "confirm_pass": {
+    "by": "XPATH",
+    "value": "//label[@for='confirmPass']/following-sibling::div[@class='el-form-item__content']//div[1]//input[@type='password' and @autocomplete='off']"
+  },
+  "btn_ok": {
+    "by": "XPATH",
+    "value": "(//button[contains(@class, 'el-button--primary')])[2]"
+  },
+  "btn_list": {
+    "by": "XPATH",
+    "value": "//div[@class='table-btn-list']"
+  },
+  "checkbox": {
+    "by": "XPATH",
+    "value": "//div[contains(@class, 'prtmission-wrapper')][6]//label"
+  },
+  "old_pass": {
+    "by": "XPATH",
+    "value": "(//div[contains(@class, 'el-input')]//input[contains(@class, 'el-input__inner')])[5]"
+  },
+  "strong_pass": {
+    "by": "XPATH",
+    "value": "(//div[contains(@class, 'el-input')]//input[contains(@class, 'el-input__inner')])[6]"
+  },
+  "strong_pass_confirm": {
+    "by": "XPATH",
+    "value": "(//div[contains(@class, 'el-input')]//input[contains(@class, 'el-input__inner')])[7]"
+  }
+}
