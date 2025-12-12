@@ -12,7 +12,8 @@ from requests import (
 from source.utilities.logger_setup import setup_logger
 from source.osd_init.osd_setup import setup_osd
 from source.ntp_init.ntp_setup import setup_ntp
-from source.user_init.user_setup import check_user_exists, user_setup
+from source.user_init.user_existency import check_user_exists
+from source.user_init.user_setup import user_setup
 
 
 logger = setup_logger()
