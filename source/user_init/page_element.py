@@ -15,7 +15,7 @@ def search_page_element(
         locator: tuple[str, str]
 ) -> WebElement:
     try:
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 40).until(
             EC.visibility_of_element_located(locator)
         )
         return driver.find_element(*locator)

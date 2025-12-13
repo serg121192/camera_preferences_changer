@@ -21,10 +21,6 @@
     "by": "XPATH",
     "value": "//li[@class='el-menu-item']//span[@class='el-menu-item--text' and text()='Керування користувачами']"
   },
-  "add_button": {
-    "by": "XPATH",
-    "value": "//button[@title='Додати']"
-  },
   "user_login": {
     "by": "XPATH",
     "value": "//div[@class='el-input']//input[@class='el-input__inner' and @type='text']"
@@ -47,7 +43,7 @@
   },
   "btn_list": {
     "by": "XPATH",
-    "value": "//div[@class='table-btn-list']"
+    "value": "//div[@class='config-content']"
   },
   "checkbox": {
     "by": "XPATH",

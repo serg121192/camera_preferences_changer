@@ -20,4 +20,3 @@ def create_user(
     search_users_menu(driver, data)
     find_add_button(driver, data)
     init_new_user(driver, data, auth[1])
-    quit_connection(driver)
