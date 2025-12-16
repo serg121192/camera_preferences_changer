@@ -4,7 +4,7 @@ from source.utilities.logger_setup import setup_logger
 logger = setup_logger()
 
 
-def get_cameras_dict() -> list:
+def get_cameras_list() -> list:
     try:
         with open("./config/cameras.txt", "r", encoding="utf-8") as cameras:
             return list(cameras.readlines())

@@ -18,11 +18,6 @@ def drivers_setup() -> webdriver.Chrome:
             options=set_driver_options()
         )
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        driver.execute_cdp_cmd("Network.enable", {})
-        driver.execute_cdp_cmd(
-            "Network.setBlockedURLs",
-            {"urls": ["*rtsp*", "*stream*", "*.m3u8", "*.ts"]}
-        )
         try:
             driver.set_window_position(0, 0)
             driver.set_window_size(1280, 900)

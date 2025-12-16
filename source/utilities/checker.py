@@ -7,12 +7,14 @@ logger = setup_logger()
 
 
 def check_success(
+        cam: str,
         response: requests.Response,
         data: str,
-        module: str
+        module: str,
 ) -> bool:
     resp_root = str
     data_root = str
+    ns = {"x": "http://www.hikvision.com/ver20/XMLSchema"}
 
     try:
         resp_root = ET.fromstring(response.text)
@@ -20,9 +22,12 @@ def check_success(
     except ET.ParseError as e:
         logger.error("XML parse error: %s", e)
 
-    if ET.tostring(data_root) in ET.tostring(resp_root):
-        logger.error(f"Checker -> {module} setup error: XML data mismatch!")
+    root_channel = resp_root.findall(".//x:channelName", namespaces=ns)
+    data_channel = data_root.findall(".//x:channelName", namespaces=ns)
+
+    if data_channel != root_channel:
+        logger.error(f"Checker -> {cam} {module} setup error: XML data mismatch!")
         return False
     else:
-        logger.info(f"Checker -> {module} setup completed: OK!")
+        logger.info(f"Checker -> {module} setup for {cam} completed: OK!")
         return True

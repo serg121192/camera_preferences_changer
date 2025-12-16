@@ -63,13 +63,14 @@ def init_new_user(
         logger.info("Clicking OK button to finish user creation...")
         btn_ok_el = search_page_element(driver, btn_ok)
         btn_ok_el.click()
-        WebDriverWait(driver, 5).until(
-            lambda drv: drv.find_element(*(By.XPATH, "//div[@class='el-message']"))
+        WebDriverWait(driver, 15).until(
+            lambda drv: drv.find_element(
+                *(By.XPATH, "//div[@class='el-message']")
+            )
         )
         check_success(driver)
         logger.info(f"New user '{data['username']}' successfully created!")
+        quit_connection(driver)
     except Exception as e:
-        logger.exception("Failed to initialize new user: %s", e)
-        raise
-    finally:
+        logger.error("Failed to initialize new user: %s", e)
         quit_connection(driver)

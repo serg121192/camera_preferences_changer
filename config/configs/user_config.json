@@ -9,6 +9,10 @@
     "by": "XPATH",
     "value": "//div[@class='user-info']//input[@class='el-input__inner' and @type='password']"
   },
+  "enter_btn": {
+    "by": "XPATH",
+    "value": "//button[contains(@class, 'el-button')]//span[contains(text(), 'Вхід')]"
+  },
   "settings_button": {
     "by": "XPATH",
     "value": "//i[contains(@class,'ic-icon_camerasetting_nor')]"

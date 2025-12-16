@@ -18,8 +18,10 @@ logger = setup_logger()
 def activate_user(
         driver: webdriver.Chrome,
         data: dict,
-        strong_password: str
+        strong_password: str,
 ) -> None:
+    login = data["username"]
+    password = data["init_password"]
     old_pass_selector = selector_mapping(data["old_pass"])
     strong_pass_selector = selector_mapping(data["strong_pass"])
     pass_confirm_selector = selector_mapping(data["strong_pass_confirm"])
@@ -28,10 +30,9 @@ def activate_user(
     try:
         cam_authentication(
             driver,
-            (data["username"], data["init_password"]),
+            (login, password),
             data
         )
-
         old_pass = search_page_element(driver, old_pass_selector)
         pyautogui.moveTo(**old_pass.location)
         old_pass.send_keys(data["init_password"])

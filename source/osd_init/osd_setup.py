@@ -16,10 +16,13 @@ def setup_osd(
         channel_name: str,
         auth: tuple[str, str],
         base_url: str,
-        headers: dict[str, str]
-) -> bool:
+        headers: dict[str, str],
+        cam: str
+) -> None:
     path = "./config/configs/osd_config.json"
     osd_conf = load_data(path)
+
+    logger.info(f" -> Setting up OSD for {cam}")
 
     xml_data = render_template(
         "osd_xml_schema.xml.j2",
@@ -43,7 +46,6 @@ def setup_osd(
             headers=headers,
             data=xml_data,
             auth=auth,
-            log_description="OSD location setup: "
         )
 
         make_put(
@@ -51,10 +53,10 @@ def setup_osd(
             headers=headers,
             data=channel_data,
             auth=auth,
-            log_description="OSD channel setup: "
         )
 
         check_success(
+            cam,
             requests.get(
                 f"{base_url}{osd_conf['URL']}",
                 headers=headers,
@@ -62,10 +64,8 @@ def setup_osd(
                 timeout=(.5, 2)
             ),
             data=xml_data,
-            module="OSD"
+            module="OSD",
         )
-
-        return True
     except RequestException as e:
         logger.error("OSD setup error: %s", e)
-        return False
+        raise

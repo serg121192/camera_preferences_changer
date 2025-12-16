@@ -10,7 +10,7 @@ logger = setup_logger()
 
 def open_connection(driver: webdriver.Chrome, ip_addr: str) -> None:
     try:
-        driver.get(ip_addr + "/doc/index.html#/portal/login")
+        driver.get(ip_addr)
         WebDriverWait(driver, 40).until(
             lambda drv:
             drv.current_url.startswith(ip_addr)

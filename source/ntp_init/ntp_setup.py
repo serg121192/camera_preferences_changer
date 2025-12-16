@@ -15,10 +15,13 @@ def setup_ntp(
         base_url: str,
         headers: dict[str, str],
         auth: tuple[str, str],
-        server_ip: str
+        server_ip: str,
+        cam: str
 ) -> bool:
     path = "./config/configs/ntp_config.json"
     ntp_conf = load_data(path)
+
+    logger.info(f" -> Setting up NTP for {cam}")
 
     xml_data = render_template(
         "ntp_server_sync.xml.j2",
@@ -49,7 +52,6 @@ def setup_ntp(
             headers=headers,
             data=xml_data,
             auth=auth,
-            log_description="NTP server setup: "
         )
 
         make_put(
@@ -57,8 +59,8 @@ def setup_ntp(
             headers=headers,
             data=time_data,
             auth=auth,
-            log_description="NTP time setup: "
         )
+        logger.info(f" -> NTP setup for {cam} completed: OK!")
         return True
     except RequestException as e:
         logger.error("NTP setup error: %s", e)

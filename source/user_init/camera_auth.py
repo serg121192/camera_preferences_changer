@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.common import TimeoutException
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import Keys
 
 from source.utilities.logger_setup import setup_logger
 from source.user_init.mapping import selector_mapping

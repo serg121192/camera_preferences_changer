@@ -3,7 +3,6 @@ from selenium import webdriver
 from source.user_init.add_button import find_add_button
 from source.user_init.camera_auth import cam_authentication
 from source.user_init.new_user_init import init_new_user
-from source.user_init.quit_connection import quit_connection
 from source.user_init.search_settings import search_settings
 from source.user_init.system_settings import search_system_settings
 from source.user_init.user_menu import search_users_menu
@@ -15,6 +14,16 @@ def create_user(
         auth: tuple[str, str]
 ) -> None:
     cam_authentication(driver, auth, data)
+
+    driver.execute_script("""
+    const videos = document.querySelectorAll('video');
+    videos.forEach(v => {
+        v.pause();
+        v.src = '';
+        v.load();
+    });
+    """)
+
     search_settings(driver, data)
     search_system_settings(driver, data)
     search_users_menu(driver, data)

@@ -6,11 +6,11 @@ from requests import (
     RequestException
 )
 from dotenv import load_dotenv
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from source.utilities.logger_setup import setup_logger
 from source.utilities.camera_activity import is_reachable
-from source.osd_init.osd_setup import setup_osd
-from source.ntp_init.ntp_setup import setup_ntp
+from source.utilities.api_setup import run_api_setup
 from source.user_init.user_existency import check_user_exists
 from source.user_init.user_setup import user_setup
 
@@ -23,38 +23,31 @@ HEADERS = {"Content-Type": "application/xml; charset=utf-8"}
 failed_logs = Path("./logs/failed_cams.txt")
 
 
-def camera_process(cam: str) -> None:
+def camera_process(cameras: list) -> None:
     with failed_logs.open("a", encoding="utf-8") as failed:
-        if not is_reachable(cam):
-            failed.write(f"Camera offline -> {cam}\n")
-        else:
-            logger.info(
-                f" \n{"-" * 40} Setting up camera: {cam} {"-" * 40} "
-            )
-            try:
-                logger.info(f" -> Setting up OSD for current camera")
-                octets = cam.split(".")
-                channel_name = ".".join(octets[2:])
-                base_url = f"http://{cam}"
-                flag_osd = setup_osd(
-                    channel_name,
+        online_cams = []
+        for cam in cameras:
+            if not is_reachable(cam.strip()):
+                failed.write(f"Camera offline -> {cam}\n")
+            else:
+                online_cams.append(cam.strip())
+        with ThreadPoolExecutor(max_workers=6) as executor:
+            futures = [
+                executor.submit(
+                    run_api_setup,
+                    cam,
                     AUTH,
-                    base_url,
                     HEADERS
                 )
-                if flag_osd:
-                    logger.info(f" -> OSD for {cam} successfully set up!")
-                else:
-                    failed.write(f" -> OSD for {cam} not set up\n")
+                for cam in online_cams
+            ]
 
-                logger.info(f" -> Setting up NTP for current camera")
-                server_ip = ".".join(octets[:3]) + ".128"
-                flag_ntp = setup_ntp(base_url, HEADERS, AUTH, server_ip)
-                if flag_ntp:
-                    logger.info(f" -> NTP for {cam} successfully set up!")
-                else:
-                    failed.write(f" -> NTP for {cam} not set up\n")
+            for future in as_completed(futures):
+                future.result()
 
+        for cam in online_cams:
+            base_url = f"http://{cam}"
+            try:
                 if check_user_exists(base_url, AUTH, HEADERS):
                     logger.info(
                         f" -> User 'stream' for {cam} already set up!"
