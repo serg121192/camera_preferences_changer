@@ -1,8 +1,8 @@
 {
-  "DATE_X": 0,
+  "DATE_X": 20,
   "DATE_Y": 576,
   "DATE_FORMAT": "DD-MM-YYYY",
-  "CHANNEL_X": 672,
+  "CHANNEL_X": 632,
   "CHANNEL_Y": 576,
   "URL": "/ISAPI/System/Video/inputs/channels/1/overlays",
   "CHANNEL_ID": 101,

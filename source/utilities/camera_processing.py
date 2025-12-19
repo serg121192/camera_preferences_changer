@@ -28,10 +28,10 @@ def camera_process(cameras: list) -> None:
         online_cams = []
         for cam in cameras:
             if not is_reachable(cam.strip()):
-                failed.write(f"Camera offline -> {cam}\n")
+                failed.write(f"Camera offline -> {cam}")
             else:
                 online_cams.append(cam.strip())
-        with ThreadPoolExecutor(max_workers=6) as executor:
+        with ThreadPoolExecutor(max_workers=16) as executor:
             futures = [
                 executor.submit(
                     run_api_setup,
